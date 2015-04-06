@@ -1,6 +1,7 @@
 package cl.magnet.magnetrestclient.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
@@ -10,12 +11,25 @@ import java.net.HttpCookie;
 import java.net.URI;
 import java.util.List;
 
-import cl.magnet.treid.utils.PrefsManager;
-
 /**
  * Created by lukas on 17-11-14.
  */
 public class PersistentCookieStore implements CookieStore {
+
+    /**
+     * The default preferences string.
+     */
+    private final static String PREF_DEFAULT_STRING = "";
+
+    /**
+     * The preferences name.
+     */
+    private final static String PREFS_NAME = PersistentCookieStore.class.getName();
+
+    /**
+     * The preferences session cookie key.
+     */
+    private final static String PREF_SESSION_COOKIE = "session_cookie";
 
     private CookieStore mStore;
     private Context mContext;
@@ -29,8 +43,8 @@ public class PersistentCookieStore implements CookieStore {
         // get the default in memory store and if there is a cookie stored in shared preferences,
         // we added it to the cookie store
         mStore = new CookieManager().getCookieStore();
-        String jsonSessionCookie = PrefsManager.getJsonSessionCookie(mContext);
-        if (!jsonSessionCookie.equals(PrefsManager.DEFAULT_STRING)) {
+        String jsonSessionCookie = getJsonSessionCookieString();
+        if (!jsonSessionCookie.equals(PREF_DEFAULT_STRING)) {
             HttpCookie cookie = mGson.fromJson(jsonSessionCookie, HttpCookie.class);
             mStore.add(URI.create(cookie.getDomain()), cookie);
         }
@@ -42,7 +56,7 @@ public class PersistentCookieStore implements CookieStore {
             // if the cookie that the cookie store attempt to add is a session cookie,
             // we remove the older cookie and save the new one in shared preferences
             remove(URI.create(cookie.getDomain()), cookie);
-            PrefsManager.saveJsonSessionCookie(mContext, mGson.toJson(cookie));
+            saveSessionCookie(cookie);
         }
 
         mStore.add(URI.create(cookie.getDomain()), cookie);
@@ -71,5 +85,25 @@ public class PersistentCookieStore implements CookieStore {
     @Override
     public boolean removeAll() {
         return mStore.removeAll();
+    }
+
+    private String getJsonSessionCookieString() {
+        return getPrefs().getString(PREF_SESSION_COOKIE, PREF_DEFAULT_STRING);
+    }
+
+    /**
+     * Saves the HttpCookie to SharedPreferences as a json string.
+     *
+     * @param cookie The cookie to save in SharedPreferences.
+     */
+    private void saveSessionCookie(HttpCookie cookie) {
+        String jsonSessionCookieString = mGson.toJson(cookie);
+        SharedPreferences.Editor editor = getPrefs().edit();
+        editor.putString(PREF_SESSION_COOKIE, jsonSessionCookieString);
+        editor.apply();
+    }
+
+    private SharedPreferences getPrefs() {
+        return mContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 }
