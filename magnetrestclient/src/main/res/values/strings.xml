@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">MagnetRestClient</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="generic_server_down_error">No se pudo conectar al servidor</string>
+    <string name="auth_failure_error">El email/contraseña son incorrectos</string>
+    <string name="no_internet_error">Hay problemas con su conexión a internet</string>
+    <string name="generic_networking_error">Hubo un error</string>
+
 </resources>

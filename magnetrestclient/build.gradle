@@ -2,10 +2,9 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.0.2"
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "cl.magnet.magnetrestclient"
         minSdkVersion 10
         targetSdkVersion 21
         versionCode 1
@@ -26,6 +25,11 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:21.0.2'
+    compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.mcxiaoke.volley:library:1.0.8'
+    compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.squareup.okhttp:okhttp:2.1.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.1.0'
+    compile 'com.squareup.okio:okio:1.0.1'
 }
