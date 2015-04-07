@@ -1,18 +1,22 @@
 package cl.magnet.magnetrestclient;
 
 import android.content.Context;
+import android.os.Build;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
+import java.lang.reflect.Field;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 
+import cl.magnet.magnetrestclient.requests.BaseJsonRequest;
 import cl.magnet.magnetrestclient.utils.LruBitmapCache;
 import cl.magnet.magnetrestclient.utils.PersistentCookieStore;
+import cl.magnet.magnetrestclient.utils.UserAgentUtils;
 
 /**
  * Singleton class that encapsulates RequestQueue and other volley functionality.
@@ -42,6 +46,9 @@ public class VolleyManager {
         mRequestQueue = getRequestQueue();
         mImageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache(LruBitmapCache
                 .getCacheSize(context)));
+
+        // set USER AGENT
+        BaseJsonRequest.USER_AGENT = UserAgentUtils.getUserAgent(mContext);
     }
 
     /**

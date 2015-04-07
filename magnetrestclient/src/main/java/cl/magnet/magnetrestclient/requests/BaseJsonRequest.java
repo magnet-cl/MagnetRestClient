@@ -16,6 +16,7 @@ import java.util.Map;
 
 import cl.magnet.magnetrestclient.BuildConfig;
 import cl.magnet.magnetrestclient.MagnetErrorListener;
+import cl.magnet.magnetrestclient.VolleyManager;
 
 
 /**
@@ -25,7 +26,7 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
 
     private static final String TAG = BaseJsonRequest.class.getSimpleName();
 
-    private static final String USER_AGENT = BuildConfig.APPLICATION_ID
+    public static String USER_AGENT = BuildConfig.APPLICATION_ID
             + "/"
             + BuildConfig.VERSION_NAME
             + " (Android "
@@ -41,7 +42,7 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
                            Response.Listener<T> listener, MagnetErrorListener errorListener) {
         super(method, url, requestBody, listener, errorListener);
 
-        mHeaders = new HashMap<String, String>();
+        mHeaders = new HashMap<>();
         mMagnetErrorListener = errorListener;
 
         // we add the user-agent header
@@ -56,7 +57,7 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
                            Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, requestBody, listener, errorListener);
         mMagnetErrorListener = null; // because we are using standard volley error listener
-        mHeaders = new HashMap<String, String>();
+        mHeaders = new HashMap<>();
 
         // we add the user-agent header
         addHeader(HTTP.USER_AGENT, USER_AGENT);
