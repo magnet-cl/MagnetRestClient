@@ -30,23 +30,6 @@ public class GsonRequest<T> extends BaseJsonRequest<T> {
     private final Response.Listener<T> mListener;
 
     public GsonRequest(int method, String url, Class<T> classType, JSONObject jsonRequest,
-                       Response.Listener<T> listener, MagnetErrorListener errorListener) {
-        this(method, url, classType, null, jsonRequest, listener, errorListener);
-    }
-
-    public GsonRequest(int method, String url, Class<T> classType, Map<String, String> headers,
-                       JSONObject jsonRequest, Response.Listener<T> listener,
-                       MagnetErrorListener errorListener) {
-        super(method, url, (jsonRequest == null) ? null : jsonRequest.toString(), listener,
-                errorListener);
-        mClassType = classType;
-        mListener = listener;
-
-        // add the headers
-        addHeaders(headers);
-    }
-
-    public GsonRequest(int method, String url, Class<T> classType, JSONObject jsonRequest,
                        Response.Listener<T> listener, Response.ErrorListener errorListener) {
         this(method, url, classType, null, jsonRequest, listener, errorListener);
     }

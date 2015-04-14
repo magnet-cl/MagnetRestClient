@@ -33,17 +33,6 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
     private Map<String, String> mHeaders;
     private MagnetErrorListener mMagnetErrorListener;
 
-    public BaseJsonRequest(int method, String url, String requestBody,
-                           Response.Listener<T> listener, MagnetErrorListener errorListener) {
-        super(method, url, requestBody, listener, errorListener);
-
-        mHeaders = new HashMap<>();
-        mMagnetErrorListener = errorListener;
-
-        // we add the default user-agent header
-        addHeader(HTTP.USER_AGENT, USER_AGENT_DEFAULT);
-    }
-
     /**
      * BaseJsonRequest constructor that uses the usual Volley {@link com.android.volley.Response
      * .ErrorListener} for error handling.

@@ -17,12 +17,6 @@ public class StringJsonRequest extends BaseJsonRequest<String> {
 
     public StringJsonRequest(int method, String url, String requestBody,
                              Response.Listener<String> listener,
-                             MagnetErrorListener errorListener) {
-        super(method, url, requestBody, listener, errorListener);
-    }
-
-    public StringJsonRequest(int method, String url, String requestBody,
-                             Response.Listener<String> listener,
                              Response.ErrorListener errorListener) {
         super(method, url, requestBody, listener, errorListener);
     }
