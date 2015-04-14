@@ -17,6 +17,7 @@ import java.util.Map;
 import cl.magnet.magnetrestclient.BuildConfig;
 import cl.magnet.magnetrestclient.MagnetErrorListener;
 import cl.magnet.magnetrestclient.VolleyManager;
+import cl.magnet.magnetrestclient.utils.UserAgentUtils;
 
 
 /**
@@ -26,14 +27,8 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
 
     private static final String TAG = BaseJsonRequest.class.getSimpleName();
 
-    public static String USER_AGENT = BuildConfig.APPLICATION_ID
-            + "/"
-            + BuildConfig.VERSION_NAME
-            + " (Android "
-            + Build.VERSION.RELEASE
-            + "; "
-            + Build.MODEL
-            + ")";
+    private static final String USER_AGENT_DEFAULT = UserAgentUtils.getUserAgent(BuildConfig
+            .APPLICATION_ID, BuildConfig.VERSION_NAME);
 
     private Map<String, String> mHeaders;
     private MagnetErrorListener mMagnetErrorListener;
@@ -45,8 +40,8 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
         mHeaders = new HashMap<>();
         mMagnetErrorListener = errorListener;
 
-        // we add the user-agent header
-        addHeader(HTTP.USER_AGENT, USER_AGENT);
+        // we add the default user-agent header
+        addHeader(HTTP.USER_AGENT, USER_AGENT_DEFAULT);
     }
 
     /**
@@ -56,11 +51,18 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
     public BaseJsonRequest(int method, String url, String requestBody,
                            Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, requestBody, listener, errorListener);
-        mMagnetErrorListener = null; // because we are using standard volley error listener
+
+        // Check if the error listener is an instance of MagnetErrorListener
+        if (errorListener instanceof MagnetErrorListener) {
+            mMagnetErrorListener = (MagnetErrorListener) errorListener;
+        } else {
+            mMagnetErrorListener = null;
+        }
+
         mHeaders = new HashMap<>();
 
-        // we add the user-agent header
-        addHeader(HTTP.USER_AGENT, USER_AGENT);
+        // we add the default user-agent header
+        addHeader(HTTP.USER_AGENT, USER_AGENT_DEFAULT);
     }
 
 
@@ -78,6 +80,10 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
         } else {
             super.deliverError(error);
         }
+    }
+
+    public void setUserAgent(String userAgent) {
+        addHeader(HTTP.USER_AGENT, userAgent);
     }
 
     protected void addHeader(String key, String value) {

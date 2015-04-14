@@ -27,7 +27,11 @@ public class VolleyManager {
 
     public static final String TAG = VolleyManager.class.getSimpleName();
 
-    private static VolleyManager mInstance;
+    // User Agent known at runtime
+    private static String USER_AGENT;
+
+    private static VolleyManager sInstance;
+
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private Context mContext;
@@ -48,7 +52,7 @@ public class VolleyManager {
                 .getCacheSize(context)));
 
         // set USER AGENT
-        BaseJsonRequest.USER_AGENT = UserAgentUtils.getUserAgent(mContext);
+        USER_AGENT = UserAgentUtils.getUserAgent(mContext);
     }
 
     /**
@@ -64,11 +68,11 @@ public class VolleyManager {
      * @return the instance of VolleyManager
      */
     public static synchronized VolleyManager getInstance(Context context) {
-        if (mInstance == null) {
-            mInstance = new VolleyManager(context);
+        if (sInstance == null) {
+            sInstance = new VolleyManager(context);
         }
 
-        return mInstance;
+        return sInstance;
     }
 
     /**
@@ -106,8 +110,7 @@ public class VolleyManager {
      * @param <T> The type of the request
      */
     public <T> void addToRequestQueue(Request<T> request) {
-        request.setTag(TAG);
-        getRequestQueue().add(request);
+        addToRequestQueue(request, TAG);
     }
 
     /**
@@ -118,6 +121,10 @@ public class VolleyManager {
      * @param <T> The type of the request
      */
     public <T> void addToRequestQueue(Request<T> request, Object tag) {
+        if (request instanceof BaseJsonRequest) {
+            ((BaseJsonRequest) request).setUserAgent(USER_AGENT);
+        }
+
         request.setTag(tag == null ? TAG : tag);
         getRequestQueue().add(request);
     }
