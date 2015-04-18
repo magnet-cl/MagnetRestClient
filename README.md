@@ -28,6 +28,7 @@ compile 'cl.magnet.magnetrestclient:magnetrestclient:1.0.0'
 ```
 
 ## Documentation
+- [Making a Request](https://github.com/magnet-cl/MagnetRestClient/wiki/Making-a-Request)
 
 ## License
 MagnetRestClient is available under the MIT license. See the LICENSE file for more information.
