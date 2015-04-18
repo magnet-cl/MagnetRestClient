@@ -12,6 +12,16 @@ import java.net.URI;
 import java.util.List;
 
 /**
+ * Repository for cookies. CookieManager will store cookies of every incoming HTTP response into
+ * CookieStore, and retrieve cookies for every outgoing HTTP request.
+ *
+ * <p>
+ * Cookies are stored in {@link android.content.SharedPreferences} and will persist on the
+ * user's device between application session. {@link com.google.gson.Gson} is used to serialize
+ * the cookies into a json string in order to be able to save the cookie to
+ * {@link android.content.SharedPreferences}
+ *
+ * <p>
  * Created by lukas on 17-11-14.
  */
 public class PersistentCookieStore implements CookieStore {
@@ -33,19 +43,21 @@ public class PersistentCookieStore implements CookieStore {
 
     private CookieStore mStore;
     private Context mContext;
-    private Gson mGson;
 
+    /**
+     * @param context the application context
+     */
     public PersistentCookieStore(Context context) {
         // prevent context leaking by getting the application context
         mContext = context.getApplicationContext();
-        mGson = new Gson();
 
         // get the default in memory store and if there is a cookie stored in shared preferences,
         // we added it to the cookie store
         mStore = new CookieManager().getCookieStore();
         String jsonSessionCookie = getJsonSessionCookieString();
         if (!jsonSessionCookie.equals(PREF_DEFAULT_STRING)) {
-            HttpCookie cookie = mGson.fromJson(jsonSessionCookie, HttpCookie.class);
+            Gson gson = new Gson();
+            HttpCookie cookie = gson.fromJson(jsonSessionCookie, HttpCookie.class);
             mStore.add(URI.create(cookie.getDomain()), cookie);
         }
     }
@@ -97,7 +109,8 @@ public class PersistentCookieStore implements CookieStore {
      * @param cookie The cookie to save in SharedPreferences.
      */
     private void saveSessionCookie(HttpCookie cookie) {
-        String jsonSessionCookieString = mGson.toJson(cookie);
+        Gson gson = new Gson();
+        String jsonSessionCookieString = gson.toJson(cookie);
         SharedPreferences.Editor editor = getPrefs().edit();
         editor.putString(PREF_SESSION_COOKIE, jsonSessionCookieString);
         editor.apply();

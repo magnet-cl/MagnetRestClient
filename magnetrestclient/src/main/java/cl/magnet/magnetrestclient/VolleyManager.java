@@ -19,22 +19,32 @@ import cl.magnet.magnetrestclient.utils.PersistentCookieStore;
 import cl.magnet.magnetrestclient.utils.UserAgentUtils;
 
 /**
- * Singleton class that encapsulates RequestQueue and other volley functionality.
+ * Singleton class that encapsulates {@link com.android.volley.RequestQueue} and other volley
+ * functionality, and uses <a href="http://square.github.io/okhttp/">OkHttp</a> as its transport
+ * layer.
  *
+ * <p>
+ * To every {@link cl.magnet.magnetrestclient.requests.BaseJsonRequest}
+ * sent, it set's the user agent to:
+ * <blockquote>{@code applicationId/versionName (androidVersion; model)}</blockquote>
+ * <p>
+ * For example:
+ * <blockquote>{@code com.example.app/1.0 (Android 4.4.4; XT1032)}</blockquote>
+ *
+ *
+ * <p>
  * Created by lukas on 02-11-14.
  */
-public class VolleyManager {
+public final class VolleyManager {
 
     public static final String TAG = VolleyManager.class.getSimpleName();
 
-    // User Agent known at runtime
-    private static String USER_AGENT;
-
-    private static VolleyManager sInstance;
+    private static VolleyManager sInstance; // singleton instance of Volley Manager
 
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private Context mContext;
+    private String mUserAgent; // user agent known at runtime
 
     /**
      * Private constructor to prevent that VolleyManager is instanciated outside this class. Uses
@@ -52,18 +62,19 @@ public class VolleyManager {
                 .getCacheSize(context)));
 
         // set USER AGENT
-        USER_AGENT = UserAgentUtils.getUserAgent(mContext);
+        mUserAgent = UserAgentUtils.getUserAgent(mContext);
     }
 
     /**
      * Returns the singleton instance of VolleyManager. If there is no instance,
      * then it creates a new one, else it returns the existing one.
+     * <p>
+     * A key concept is that context <b>must</b> be the Application context,
+     * <b>not</b> an Activity context. This  ensures that the RequestQueue will last for the
+     * lifetime of your app, instead of being recreated every time the activity is recreated (for
+     * example, when the user rotates the device).
      *
-     * A key concept is that context must be the Application context,
-     * not an Activity context. This  ensures that the RequestQueue will last for the lifetime of
-     * your app, instead of being recreated every time the activity is recreated (for example,
-     * when the user rotates the device).
-     * @param context the context where the method is called. This context MUST be Application
+     * @param context the context where the method is called. This context <b>MUST</b> be Application
      *                context.
      * @return the instance of VolleyManager
      */
@@ -84,7 +95,7 @@ public class VolleyManager {
      *
      * @return RequestQueue instance
      */
-    public RequestQueue getRequestQueue() {
+    private RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             // getApplicationContext() keeps from leaking Activity or BroadcastReceiver if
             // someone pass one in
@@ -122,7 +133,7 @@ public class VolleyManager {
      */
     public <T> void addToRequestQueue(Request<T> request, Object tag) {
         if (request instanceof BaseJsonRequest) {
-            ((BaseJsonRequest) request).setUserAgent(USER_AGENT);
+            ((BaseJsonRequest) request).setUserAgent(mUserAgent);
         }
 
         request.setTag(tag == null ? TAG : tag);

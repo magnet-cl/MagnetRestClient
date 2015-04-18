@@ -12,6 +12,11 @@ import com.android.volley.VolleyError;
  *     <li>Other errors</li>
  * </ul>
  *
+ * <p>
+ * MagnetErrorListener only works when using with requests that inherit from
+ * {@link cl.magnet.magnetrestclient.requests.BaseJsonRequest}
+ *
+ * <p>
  * Created by lukas on 18-03-15.
  */
 public abstract class MagnetErrorListener implements Response.ErrorListener {
@@ -35,8 +40,10 @@ public abstract class MagnetErrorListener implements Response.ErrorListener {
 
     /**
      * Method called when an unhandled error has been ocurred. This happens when the server
-     * responds with a 4xx or 5xx status code, with the exception of 401 and 426 codes,
-     * that are handled by {@link #onUnauthorizedError(com.android.volley.VolleyError, com.android.volley.Request)}
+     * responds with a 4xx or 5xx status code, with the exception of 401 and
+     * {@value #HTTP_UPGRADE_REQUIRED} codes,
+     * that are handled by
+     * {@link #onUnauthorizedError(com.android.volley.VolleyError, com.android.volley.Request)}
      * and {@link #onUpgradeRequiredError(com.android.volley.VolleyError)} respectively.
      *
      * @param volleyError The error with the provided error code.
@@ -57,7 +64,7 @@ public abstract class MagnetErrorListener implements Response.ErrorListener {
 
     /**
      * Method called when an Upgrade Required error has been ocurred. This happens when the
-     * server responds with a 426 status code.
+     * server responds with a {@value #HTTP_UPGRADE_REQUIRED} status code.
      *
      * @param volleyError The error with the provided error code.
      */

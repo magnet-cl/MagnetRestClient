@@ -9,6 +9,8 @@ import com.android.volley.toolbox.ImageLoader;
 
 /**
  * Implementation of an in-memory lru cache.
+ *
+ * <p>
  * Created by lukas on 25-07-14.
  */
 public class LruBitmapCache extends LruCache<String, Bitmap> implements ImageLoader.ImageCache {
@@ -19,10 +21,18 @@ public class LruBitmapCache extends LruCache<String, Bitmap> implements ImageLoa
     // three screens
     private static final int SCREENS_NUMB = 3;
 
+    /**
+     * @param maxSize maximum sum of the sizes of the entries in this cache.
+     */
     public LruBitmapCache(int maxSize) {
         super(maxSize);
     }
 
+    /**
+     * Uses {@link #getCacheSize(android.content.Context)} to get the maximum size of the cache.
+     *
+     * @param context the application context
+     */
     public LruBitmapCache(Context context) {
         this(getCacheSize(context));
     }
@@ -43,8 +53,9 @@ public class LruBitmapCache extends LruCache<String, Bitmap> implements ImageLoa
     }
 
     /**
-     * Returns a cache size equal to approximately SCREENS_NUMB screens worth of images,
-     * using BYTES_PER_PIXEL bytes per pixel.
+     * Returns a cache size equal to approximately {@value #SCREENS_NUMB} screens worth of images,
+     * using {@value #BYTES_PER_PIXEL} bytes per pixel.
+     *
      * @param context the context where the cache needs to be
      * @return the cache size
      */
