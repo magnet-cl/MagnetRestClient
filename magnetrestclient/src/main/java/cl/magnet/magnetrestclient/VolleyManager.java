@@ -1,14 +1,12 @@
 package cl.magnet.magnetrestclient;
 
 import android.content.Context;
-import android.os.Build;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
-import java.lang.reflect.Field;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -22,17 +20,14 @@ import cl.magnet.magnetrestclient.utils.UserAgentUtils;
  * Singleton class that encapsulates {@link com.android.volley.RequestQueue} and other volley
  * functionality, and uses <a href="http://square.github.io/okhttp/">OkHttp</a> as its transport
  * layer.
- *
- * <p>
+ * <p/>
  * To every {@link cl.magnet.magnetrestclient.requests.BaseJsonRequest}
  * sent, it set's the user agent to:
  * <blockquote>{@code applicationId/versionName (androidVersion; model)}</blockquote>
- * <p>
+ * <p/>
  * For example:
  * <blockquote>{@code com.example.app/1.0 (Android 4.4.4; XT1032)}</blockquote>
- *
- *
- * <p>
+ * <p/>
  * Created by lukas on 02-11-14.
  */
 public final class VolleyManager {
@@ -50,7 +45,7 @@ public final class VolleyManager {
      * Private constructor to prevent that VolleyManager is instanciated outside this class. Uses
      * the {@link cl.magnet.magnetrestclient.utils.PersistentCookieStore} for reading and writing cookies.
      *
-     * @param context the context of the controller
+     * @param context The context of the controller
      */
     private VolleyManager(Context context) {
         mContext = context;
@@ -68,15 +63,15 @@ public final class VolleyManager {
     /**
      * Returns the singleton instance of VolleyManager. If there is no instance,
      * then it creates a new one, else it returns the existing one.
-     * <p>
+     * <p/>
      * A key concept is that context <b>must</b> be the Application context,
      * <b>not</b> an Activity context. This  ensures that the RequestQueue will last for the
      * lifetime of your app, instead of being recreated every time the activity is recreated (for
      * example, when the user rotates the device).
      *
-     * @param context the context where the method is called. This context <b>MUST</b> be Application
-     *                context.
-     * @return the instance of VolleyManager
+     * @param context The context where the method is called. This context <b>MUST</b> be
+     *                Application context.
+     * @return The instance of VolleyManager
      */
     public static synchronized VolleyManager getInstance(Context context) {
         if (sInstance == null) {
@@ -89,7 +84,7 @@ public final class VolleyManager {
     /**
      * Returns the singleton instance of RequestQueue that last the lifetime of the app. If there
      * is no instance of RequestQueue, then a new one is created.
-     *
+     * <p/>
      * The created RequestQueue uses {@link cl.magnet.magnetrestclient.OkHttpStack OkHttpStack}
      * for networking.
      *
@@ -103,11 +98,11 @@ public final class VolleyManager {
                     new OkHttpStack());
         }
 
-        return  mRequestQueue;
+        return mRequestQueue;
     }
 
     /**
-     * @return the image loader
+     * @return The image loader
      */
     public ImageLoader getImageLoader() {
         return mImageLoader;
@@ -117,8 +112,8 @@ public final class VolleyManager {
     /**
      * Adds a request to the RequestQueue with the default tag.
      *
-     * @param request the request that will be added to the queue.
-     * @param <T> The type of the request
+     * @param request The request that will be added to the queue.
+     * @param <T>     The type of the request
      */
     public <T> void addToRequestQueue(Request<T> request) {
         addToRequestQueue(request, TAG);
@@ -128,8 +123,8 @@ public final class VolleyManager {
      * Adds a request to the RequestQueue with a specific tag.
      *
      * @param request The request that will be added to the queue.
-     * @param tag The tag to be added to the request
-     * @param <T> The type of the request
+     * @param tag     The tag to be added to the request
+     * @param <T>     The type of the request
      */
     public <T> void addToRequestQueue(Request<T> request, Object tag) {
         if (request instanceof BaseJsonRequest) {
@@ -144,7 +139,7 @@ public final class VolleyManager {
      * Cancels all pending requests by the specified tag. It is important to specify a tag so
      * that pending/ongoing requests can be cancelled.
      *
-     * @param tag the tag of the requests that are going to be cancelled
+     * @param tag The tag of the requests that are going to be cancelled
      */
     public void cancelPendingRequests(Object tag) {
         if (mRequestQueue != null) {

@@ -1,9 +1,7 @@
 package cl.magnet.magnetrestclient;
 
-import android.content.Context;
 import android.os.Build;
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -16,10 +14,8 @@ import com.squareup.okhttp.mockwebserver.RecordedRequest;
 import org.apache.http.protocol.HTTP;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 
 import cl.magnet.magnetrestclient.requests.BaseJsonRequest;
-import cl.magnet.magnetrestclient.test.*;
 
 /**
  * Created by lukas on 06-04-15.
@@ -62,8 +58,8 @@ public class BaseJsonRequestTest extends AndroidTestCase {
     private static class BaseJsonRequestImpl extends BaseJsonRequest<String> {
 
         public BaseJsonRequestImpl(int method, String url, String requestBody,
-                               Response.Listener<String> listener,
-                               Response.ErrorListener errorListener) {
+                                   Response.Listener<String> listener,
+                                   Response.ErrorListener errorListener) {
             super(method, url, requestBody, listener, errorListener);
         }
 

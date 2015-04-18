@@ -11,8 +11,7 @@ import java.net.URL;
 /**
  * An {@link com.android.volley.toolbox.HttpStack HttpStack} implementation which uses
  * <a href="http://square.github.io/okhttp/">OkHttp</a> as its transport layer.
- *
- * <p>
+ * <p/>
  * Created by lukas on 02-11-14.
  */
 public class OkHttpStack extends HurlStack {
@@ -29,7 +28,8 @@ public class OkHttpStack extends HurlStack {
         mFactory = new OkUrlFactory(client);
     }
 
-    @Override protected HttpURLConnection createConnection(URL url) throws IOException {
+    @Override
+    protected HttpURLConnection createConnection(URL url) throws IOException {
         return mFactory.open(url);
     }
 }

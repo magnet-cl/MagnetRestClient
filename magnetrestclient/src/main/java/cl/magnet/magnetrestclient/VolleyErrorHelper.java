@@ -12,7 +12,7 @@ import com.android.volley.VolleyError;
 
 /**
  * Helper volley error class
- *
+ * <p/>
  * Created by lukas on 02-11-14.
  */
 public final class VolleyErrorHelper {
@@ -47,7 +47,7 @@ public final class VolleyErrorHelper {
      * Determines whether the error is related to network
      *
      * @param error
-     * @return true if the error is a network problem
+     * @return True if the error is a network problem
      */
     public static boolean isNetworkProblem(Object error) {
         return (error instanceof NetworkError) || (error instanceof NoConnectionError);
@@ -61,7 +61,7 @@ public final class VolleyErrorHelper {
      * Determines whether the error is related to server, most likely 4xx or 5xx HTTP status code.
      *
      * @param error
-     * @return true if the server responded with an error
+     * @return True if the server responded with an error
      */
     public static boolean isServerProblem(Object error) {
         return (error instanceof ServerError);

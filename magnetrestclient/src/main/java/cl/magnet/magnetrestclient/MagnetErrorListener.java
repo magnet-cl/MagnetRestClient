@@ -7,16 +7,14 @@ import com.android.volley.VolleyError;
 /**
  * Abstract class that divides error responses in three:
  * <ul>
- *     <li>Unauthorized error: response status code 401</li>
- *     <li>Upgrade required error: response status code 426</li>
- *     <li>Other errors</li>
+ * <li>Unauthorized error: response status code 401</li>
+ * <li>Upgrade required error: response status code 426</li>
+ * <li>Other errors</li>
  * </ul>
- *
- * <p>
+ * <p/>
  * MagnetErrorListener only works when using with requests that inherit from
  * {@link cl.magnet.magnetrestclient.requests.BaseJsonRequest}
- *
- * <p>
+ * <p/>
  * Created by lukas on 18-03-15.
  */
 public abstract class MagnetErrorListener implements Response.ErrorListener {
@@ -54,11 +52,10 @@ public abstract class MagnetErrorListener implements Response.ErrorListener {
      * Method called when an Unauthorized error has been ocurred. This happens when the
      * server responds with an 401 status code.
      *
-     * @see <a href="http://tools.ietf.org/html/rfc2616#section-10.4.2">401 Unauthorized</a>
-     *
      * @param volleyError The error with the provided error code.
-     * @param request The request that triggered the error.
-     * @param <T> Parsed type of the request.
+     * @param request     The request that triggered the error.
+     * @param <T>         Parsed type of the request.
+     * @see <a href="http://tools.ietf.org/html/rfc2616#section-10.4.2">401 Unauthorized</a>
      */
     public abstract <T> void onUnauthorizedError(VolleyError volleyError, final Request<T> request);
 

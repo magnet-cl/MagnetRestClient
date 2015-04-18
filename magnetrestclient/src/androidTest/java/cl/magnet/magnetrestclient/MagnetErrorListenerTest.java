@@ -1,22 +1,13 @@
 package cl.magnet.magnetrestclient;
 
-import android.os.Build;
 import android.test.AndroidTestCase;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.squareup.okhttp.mockwebserver.MockResponse;
-import com.squareup.okhttp.mockwebserver.MockWebServer;
-import com.squareup.okhttp.mockwebserver.RecordedRequest;
-
-import org.apache.http.protocol.HTTP;
 
 import java.util.HashMap;
 
-import cl.magnet.magnetrestclient.requests.BaseJsonRequest;
 import cl.magnet.magnetrestclient.requests.StringJsonRequest;
 
 /**

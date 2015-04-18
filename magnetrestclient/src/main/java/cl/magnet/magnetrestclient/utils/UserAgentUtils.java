@@ -2,14 +2,12 @@ package cl.magnet.magnetrestclient.utils;
 
 import android.content.Context;
 import android.os.Build;
-import android.util.Log;
 
 import java.lang.reflect.Field;
 
 /**
  * User agent utility class.
- *
- * <p>
+ * <p/>
  * Created by lukas on 06-04-15.
  */
 public final class UserAgentUtils {
@@ -21,12 +19,12 @@ public final class UserAgentUtils {
     /**
      * Build a user agent string of the form:
      * <blockquote>{@code applicationId/versionName (androidVersion; model)}</blockquote>
-     * <p>
+     * <p/>
      * For example:
      * <blockquote>{@code com.example.app/1.0 (Android 4.4.4; XT1032)}</blockquote>
      *
-     * @param context the application context
-     * @return the user agent
+     * @param context The application context
+     * @return The user agent
      */
     public static String getUserAgent(Context context) {
         String applicationId = (String) getBuildConfigValue(context, "APPLICATION_ID");
@@ -38,13 +36,13 @@ public final class UserAgentUtils {
     /**
      * Builds a user agent string of the form:
      * <blockquote>{@code applicationId/versionName (androidVersion; model)}</blockquote>
-     * <p>
+     * <p/>
      * For example:
      * <blockquote>{@code com.example.app/1.0 (Android 4.4.4; XT1032)}</blockquote>
      *
-     * @param applicationId the application id, e.g: com.example.app
-     * @param versionName the application version name, e.g: 1.0
-     * @return the user agent
+     * @param applicationId The application id, e.g: com.example.app
+     * @param versionName   The application version name, e.g: 1.0
+     * @return The user agent
      */
     public static String getUserAgent(String applicationId, String versionName) {
         return applicationId
@@ -60,9 +58,9 @@ public final class UserAgentUtils {
     /**
      * Gets a field from the project's app BuildConfig.
      *
-     * @param context       Used to find the correct file
-     * @param fieldName     The name of the field-to-access
-     * @return              The value of the field, or {@code null} if the field is not found.
+     * @param context   Used to find the correct file
+     * @param fieldName The name of the field-to-access
+     * @return The value of the field, or {@code null} if the field is not found.
      */
     private static Object getBuildConfigValue(Context context, String fieldName) {
         try {

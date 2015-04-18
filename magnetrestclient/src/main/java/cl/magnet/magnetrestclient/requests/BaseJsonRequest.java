@@ -1,6 +1,5 @@
 package cl.magnet.magnetrestclient.requests;
 
-import android.os.Build;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -16,21 +15,17 @@ import java.util.Map;
 
 import cl.magnet.magnetrestclient.BuildConfig;
 import cl.magnet.magnetrestclient.MagnetErrorListener;
-import cl.magnet.magnetrestclient.VolleyManager;
 import cl.magnet.magnetrestclient.utils.UserAgentUtils;
 
 
 /**
  * A request for retrieving a T type response body at a given URL that also
  * optionally sends along a JSON body in the request specified.
- *
- * <p>
+ * <p/>
  * This class can handle {@link cl.magnet.magnetrestclient.MagnetErrorListener} different errors,
  * but it also works with common  Volley {@link com.android.volley.Response.ErrorListener}.
- *
+ * <p/>
  * {@inheritDoc}
- *
- * <p>
  * Created by lukas on 16-03-15.
  */
 public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
@@ -47,14 +42,14 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
     /**
      * {@inheritDoc}
      *
-     * @param method the http request method. See {@link com.android.volley.Request.Method} for
-     *               supported methods.
-     * @param url the request url
-     * @param requestBody the request body
-     * @param listener callback for delivering parse responses
-     * @param errorListener callback for devilering errors. It can be a
-     *  {@link cl.magnet.magnetrestclient.MagnetErrorListener} or
-     *  {@link com.android.volley.Response.ErrorListener}
+     * @param method        The http request method. See {@link com.android.volley.Request.Method} for
+     *                      supported methods.
+     * @param url           The request url
+     * @param requestBody   The request body
+     * @param listener      Callback for delivering parse responses
+     * @param errorListener Callback for devilering errors. It can be a
+     *                      {@link cl.magnet.magnetrestclient.MagnetErrorListener} or
+     *                      {@link com.android.volley.Response.ErrorListener}
      */
     public BaseJsonRequest(int method, String url, String requestBody,
                            Response.Listener<T> listener, Response.ErrorListener errorListener) {
@@ -93,7 +88,7 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
     /**
      * Sets the user agent http header.
      *
-     * @param userAgent the user agent
+     * @param userAgent The user agent
      */
     public void setUserAgent(String userAgent) {
         addHeader(HTTP.USER_AGENT, userAgent);
@@ -102,8 +97,8 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
     /**
      * Adds a header to the request.
      *
-     * @param key the header key, e.g: Content-Type
-     * @param value the header value, e.g: application/json
+     * @param key   The header key, e.g: Content-Type
+     * @param value The header value, e.g: application/json
      */
     protected void addHeader(String key, String value) {
         mHeaders.put(key, value);
@@ -112,7 +107,7 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
     /**
      * Adds a map of headers to the request.
      *
-     * @param headers the headers map.
+     * @param headers The headers map.
      */
     protected void addHeaders(Map<String, String> headers) {
         if (headers != null) {
