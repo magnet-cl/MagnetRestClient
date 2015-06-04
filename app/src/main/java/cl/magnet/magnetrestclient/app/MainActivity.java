@@ -6,7 +6,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import java.lang.reflect.Method;
+
+import cl.magnet.magnetrestclient.VolleyErrorHelper;
+import cl.magnet.magnetrestclient.VolleyManager;
 import cl.magnet.magnetrestclient.app.R;
 import cl.magnet.magnetrestclient.utils.UserAgentUtils;
 
@@ -25,6 +35,21 @@ public class MainActivity extends ActionBarActivity {
 
         String userAgent = UserAgentUtils.getUserAgent(getApplicationContext());
         mUserAgentTv.setText(userAgent);
+
+        StringRequest stringRequest = new StringRequest("www.google.com", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // should show no connection error, because the manifest has no internet permission
+                Toast.makeText(getApplicationContext(), VolleyErrorHelper.getMessage(error,
+                        getApplicationContext()), Toast.LENGTH_LONG).show();
+            }
+        });
+        VolleyManager.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
 
 

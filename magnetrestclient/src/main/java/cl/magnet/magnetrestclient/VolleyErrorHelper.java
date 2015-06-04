@@ -25,6 +25,7 @@
 package cl.magnet.magnetrestclient;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -45,76 +46,55 @@ public final class VolleyErrorHelper {
     private VolleyErrorHelper() {
     }
 
+
     /**
      * Returns appropriate message which is to be displayed to the user
      * against the specified error object.
      *
-     * @param error
-     * @param context
-     * @return
+     * @param error The VolleyError received
+     * @param context The context of the application
+     * @return A string with the error feedback.
      */
-    public static String getMessage(Object error, Context context) {
-        if (error instanceof TimeoutError) {
-            return context.getResources().getString(R.string.generic_server_down_error);
-        } else if (isAuthFailureError(error)) {
-            return context.getResources().getString(R.string.auth_failure_error);
-        } else if (isServerProblem(error)) {
-            return handleServerError(error, context);
-        } else if (isNetworkProblem(error)) {
-            return context.getResources().getString(R.string.no_internet_error);
-        } else {
-            return context.getResources().getString(R.string.generic_networking_error);
+    public static String getMessage(VolleyError error, Context context) {
+        Resources res = context.getResources();
+
+        if (isNetworkProblem(error)) {
+            // Handles network error
+            return res.getString(R.string.no_internet_error);
+        } else if (isAuthError(error)) {
+            // Handles authentication errors
+            return res.getString(R.string.auth_failure_error);
         }
+
+        // Any other error codes, return a message with the code.
+        if (error.networkResponse != null) {
+            return String.format(res.getString(R.string.unhandled_error),
+                    error.networkResponse.statusCode);
+        }
+
+        // if there is no networkResponse, then the connection couldn't established, so there is an
+        // internet error
+        return res.getString(R.string.no_internet_error);
+    }
+
+
+    /**
+     * Check if the error is an authentication error.
+     *
+     * @param error The VolleyError received.
+     * @return True if the error is an authentication error.
+     */
+    public static boolean isAuthError(VolleyError error) {
+        return error.networkResponse != null && error.networkResponse.statusCode == 401;
     }
 
     /**
-     * Determines whether the error is related to network
+     * Determines whether the error is related to a network problem.
      *
-     * @param error
+     * @param error The VolleyError returned
      * @return True if the error is a network problem
      */
-    public static boolean isNetworkProblem(Object error) {
-        return (error instanceof NetworkError) || (error instanceof NoConnectionError);
+    public static boolean isNetworkProblem(VolleyError error) {
+        return (error instanceof NoConnectionError) || (error instanceof NetworkError);
     }
-
-    public static boolean isAuthFailureError(Object error) {
-        return (error instanceof AuthFailureError);
-    }
-
-    /**
-     * Determines whether the error is related to server, most likely 4xx or 5xx HTTP status code.
-     *
-     * @param error
-     * @return True if the server responded with an error
-     */
-    public static boolean isServerProblem(Object error) {
-        return (error instanceof ServerError);
-    }
-
-    /**
-     * Handles the server error, tries to determine whether to show a stock message or to
-     * show a message retrieved from the server.
-     *
-     * @param err
-     * @param context
-     * @return
-     */
-    public static String handleServerError(Object err, Context context) {
-        VolleyError error = (VolleyError) err;
-
-        NetworkResponse response = error.networkResponse;
-
-        if (response != null) switch (response.statusCode) {
-            case 404:
-                return context.getResources().getString(R.string.generic_networking_error);
-            case 422:
-                return context.getResources().getString(R.string.generic_networking_error);
-            case 401:
-                return error.getMessage();
-            default:
-                return context.getResources().getString(R.string.generic_server_down_error);
-        }
-        return context.getResources().getString(R.string.generic_networking_error);
-    }
-
 }
