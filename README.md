@@ -14,17 +14,10 @@ Volley is really great, but is missing a few features that should be by default 
 - Default BitmapLruCache implementation added to ImageLoader
 
 ## Download
-Grab via Maven:
-```xml
-<dependency>
-  <groupId>cl.magnet.magnetrestclient</groupId>
-  <artifactId>magnetrestclient</artifactId>
-  <version>1.0.0</version>
-</dependency>
-```
-or Gradle:
+Grab via Gradle:
+
 ```groovy
-compile 'cl.magnet.magnetrestclient:magnetrestclient:1.0.0'
+compile 'cl.magnet.magnetrestclient:magnetRestClient:1.0.1'
 ```
 
 ## Documentation
