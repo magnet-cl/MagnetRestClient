@@ -47,6 +47,12 @@ public abstract class MagnetErrorListener implements Response.ErrorListener {
 
     private static final int HTTP_UPGRADE_REQUIRED = 426;
 
+    private UpgradeRequiredHandler handler;
+
+    public MagnetErrorListener(UpgradeRequiredHandler handler){
+        this.handler = handler;
+    }
+
     @Override
     public void onErrorResponse(VolleyError error) {
         if (error.networkResponse != null) {
@@ -89,5 +95,7 @@ public abstract class MagnetErrorListener implements Response.ErrorListener {
      *
      * @param volleyError The error with the provided error code.
      */
-    public abstract void onUpgradeRequiredError(VolleyError volleyError);
+    public void onUpgradeRequiredError(VolleyError volleyError){
+        handler.handleUpgradeRequired();
+    }
 }
