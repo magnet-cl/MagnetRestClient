@@ -41,10 +41,6 @@ import java.net.URL;
 public class OkHttpStack extends HurlStack {
     private final OkUrlFactory mFactory;
 
-    public OkHttpStack() {
-        this(new OkHttpClient());
-    }
-
     public OkHttpStack(OkHttpClient client) {
         if (client == null) {
             throw new NullPointerException("Client must not be null.");

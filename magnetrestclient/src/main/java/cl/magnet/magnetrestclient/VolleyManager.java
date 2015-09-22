@@ -30,6 +30,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -118,8 +119,10 @@ public final class VolleyManager {
         if (mRequestQueue == null) {
             // getApplicationContext() keeps from leaking Activity or BroadcastReceiver if
             // someone pass one in
+            OkHttpClient client = new OkHttpClient();
+            client.setCookieHandler(CookieHandler.getDefault());
             mRequestQueue = Volley.newRequestQueue(mContext.getApplicationContext(),
-                    new OkHttpStack());
+                    new OkHttpStack(client));
         }
 
         return mRequestQueue;

@@ -53,6 +53,8 @@ public class PersistentCookieStore implements CookieStore {
      */
     private final static String PREF_DEFAULT_STRING = "";
 
+    private final static String SESSION_ID = "sessionid";
+
     /**
      * The preferences name.
      */
@@ -86,7 +88,7 @@ public class PersistentCookieStore implements CookieStore {
 
     @Override
     public void add(URI uri, HttpCookie cookie) {
-        if (cookie.getName().equals("sessionid")) {
+        if (cookie.getName().equals(SESSION_ID)) {
             // if the cookie that the cookie store attempt to add is a session cookie,
             // we remove the older cookie and save the new one in shared preferences
             remove(URI.create(cookie.getDomain()), cookie);
