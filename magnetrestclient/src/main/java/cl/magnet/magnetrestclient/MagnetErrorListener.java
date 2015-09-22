@@ -24,9 +24,15 @@
 
 package cl.magnet.magnetrestclient;
 
+import android.util.Log;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+
+import org.apache.http.HttpStatus;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Abstract class that divides error responses in three:
@@ -55,6 +61,25 @@ public abstract class MagnetErrorListener implements Response.ErrorListener {
 
     @Override
     public void onErrorResponse(VolleyError error) {
+
+        if(error.networkResponse != null &&
+                error.networkResponse.data != null) {
+            try {
+                String responseBody = new String(error.networkResponse.data, "utf-8");
+
+                Log.d(TAG, responseBody);
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (error.networkResponse != null && error.networkResponse.statusCode == HttpStatus
+                .SC_UNAUTHORIZED ) {
+            Log.d(TAG, "Unauthorized request!");
+            onUnauthorizedError(error);
+        }
+
         if (error.networkResponse != null) {
             if (error.networkResponse.statusCode == HTTP_UPGRADE_REQUIRED) {
                 onUpgradeRequiredError(error);
@@ -71,7 +96,7 @@ public abstract class MagnetErrorListener implements Response.ErrorListener {
      * responds with a 4xx or 5xx status code, with the exception of 401 and
      * {@value #HTTP_UPGRADE_REQUIRED} codes,
      * that are handled by
-     * {@link #onUnauthorizedError(com.android.volley.VolleyError, com.android.volley.Request)}
+     * {@link #onUnauthorizedError(com.android.volley.VolleyError)}
      * and {@link #onUpgradeRequiredError(com.android.volley.VolleyError)} respectively.
      *
      * @param volleyError The error with the provided error code.
@@ -83,11 +108,9 @@ public abstract class MagnetErrorListener implements Response.ErrorListener {
      * server responds with an 401 status code.
      *
      * @param volleyError The error with the provided error code.
-     * @param request     The request that triggered the error.
-     * @param <T>         Parsed type of the request.
      * @see <a href="http://tools.ietf.org/html/rfc2616#section-10.4.2">401 Unauthorized</a>
      */
-    public abstract <T> void onUnauthorizedError(VolleyError volleyError, final Request<T> request);
+    public abstract <T> void onUnauthorizedError(VolleyError volleyError);
 
     /**
      * Method called when an Upgrade Required error has been ocurred. This happens when the

@@ -7,5 +7,9 @@
     <string name="no_internet_error">Hay problemas con su conexión a internet.</string>
     <string name="unhandled_error">Hubo un error interno (código %1$d).</string>
     <string name="unknown_error">Hubo un error interno.</string>
+    <string name="title_activity_upgrade_required">UpgradeRequiredActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
