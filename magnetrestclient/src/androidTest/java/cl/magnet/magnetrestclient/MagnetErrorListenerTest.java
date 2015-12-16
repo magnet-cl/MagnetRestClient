@@ -55,7 +55,7 @@ public class MagnetErrorListenerTest extends AndroidTestCase {
                 mMagnetErrorListener.getError());
     }
 
-    private static class MagnetErrorListenerImpl extends MagnetErrorListener {
+    private class MagnetErrorListenerImpl extends MagnetErrorListener {
 
         static final int NO_ERROR = 0;
         static final int UNHANDLED_ERROR = 1;
@@ -65,6 +65,7 @@ public class MagnetErrorListenerTest extends AndroidTestCase {
         private int mError;
 
         public MagnetErrorListenerImpl() {
+            super(null);
             mError = NO_ERROR;
         }
 
@@ -78,7 +79,7 @@ public class MagnetErrorListenerTest extends AndroidTestCase {
         }
 
         @Override
-        public <T> void onUnauthorizedError(VolleyError volleyError, Request<T> request) {
+        public <T> void onUnauthorizedError(VolleyError volleyError) {
             mError = ON_UNAUTHORIZED_ERROR;
         }
 

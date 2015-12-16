@@ -24,8 +24,10 @@
 
 package cl.magnet.magnetrestclient;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -33,6 +35,7 @@ import com.android.volley.VolleyError;
 import org.apache.http.HttpStatus;
 
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 
 /**
  * Abstract class that divides error responses in three:
@@ -51,45 +54,46 @@ public abstract class MagnetErrorListener implements Response.ErrorListener {
 
     private static final String TAG = MagnetErrorListener.class.getSimpleName();
 
+    public static final int HTTP_UNAUTHORIZED = HttpURLConnection.HTTP_UNAUTHORIZED;
     private static final int HTTP_UPGRADE_REQUIRED = 426;
 
-    private UpgradeRequiredHandler handler;
+    private Context mContext;
 
-    public MagnetErrorListener(UpgradeRequiredHandler handler){
-        this.handler = handler;
+    public MagnetErrorListener(Context context) {
+        // prevents an activity or broadcast receiver leak by getting the application context
+        mContext = context.getApplicationContext();
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
 
-        if(error.networkResponse != null &&
-                error.networkResponse.data != null) {
-            try {
-                String responseBody = new String(error.networkResponse.data, "utf-8");
+        NetworkResponse networkResponse = error.networkResponse;
 
-                Log.d(TAG, responseBody);
+        if (networkResponse != null) {
 
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+            switch (networkResponse.statusCode) {
+                case HTTP_UNAUTHORIZED:
+                    onUnauthorizedError(error);
+                    break;
+                case HTTP_UPGRADE_REQUIRED:
+                    onUpgradeRequiredError(error);
+                    break;
+                default:
+                    onUnhandledError(error);
+                    break;
             }
-        }
 
-        if (error.networkResponse != null && error.networkResponse.statusCode == HttpStatus
-                .SC_UNAUTHORIZED ) {
-            Log.d(TAG, "Unauthorized request!");
-            onUnauthorizedError(error);
-        }
-
-        if (error.networkResponse != null) {
-            if (error.networkResponse.statusCode == HTTP_UPGRADE_REQUIRED) {
-                onUpgradeRequiredError(error);
-            } else {
-                onUnhandledError(error);
-            }
         } else {
-            onUnhandledError(error);
+            noInternetConnectionError();
         }
+
     }
+
+    /**
+     * Method called when there is no internet connection. This happens when there is
+     * no response from the server
+     */
+    protected abstract void noInternetConnectionError();
 
     /**
      * Method called when an unhandled error has been ocurred. This happens when the server
@@ -118,7 +122,6 @@ public abstract class MagnetErrorListener implements Response.ErrorListener {
      *
      * @param volleyError The error with the provided error code.
      */
-    public void onUpgradeRequiredError(VolleyError volleyError){
-        handler.handleUpgradeRequired();
-    }
+    public abstract void onUpgradeRequiredError(VolleyError volleyError);
+
 }
