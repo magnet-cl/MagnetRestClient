@@ -55,7 +55,7 @@ public abstract class MagnetErrorListener implements Response.ErrorListener {
     private static final String TAG = MagnetErrorListener.class.getSimpleName();
 
     public static final int HTTP_UNAUTHORIZED = HttpURLConnection.HTTP_UNAUTHORIZED;
-    private static final int HTTP_UPGRADE_REQUIRED = 426;
+    public static final int HTTP_UPGRADE_REQUIRED = 426;
 
     private Context mContext;
 
@@ -93,7 +93,7 @@ public abstract class MagnetErrorListener implements Response.ErrorListener {
      * Method called when there is no internet connection. This happens when there is
      * no response from the server
      */
-    protected abstract void noInternetConnectionError();
+    public abstract void noInternetConnectionError();
 
     /**
      * Method called when an unhandled error has been ocurred. This happens when the server

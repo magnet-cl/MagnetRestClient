@@ -74,6 +74,9 @@ public class MagnetErrorListenerTest extends AndroidTestCase {
         }
 
         @Override
+        public void noInternetConnectionError() {}
+
+        @Override
         public void onUnhandledError(VolleyError volleyError) {
             mError = UNHANDLED_ERROR;
         }
