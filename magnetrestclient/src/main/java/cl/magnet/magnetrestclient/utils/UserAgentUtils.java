@@ -81,6 +81,8 @@ public final class UserAgentUtils {
 
     /**
      * Gets a field from the project's app BuildConfig.
+     * If the package name has a .debug suffix on it, it will be removed because the BuildConfig
+     * file it is deployed in the original package.
      *
      * @param context   Used to find the correct file
      * @param fieldName The name of the field-to-access
@@ -88,7 +90,16 @@ public final class UserAgentUtils {
      */
     private static Object getBuildConfigValue(Context context, String fieldName) {
         try {
-            Class<?> clazz = Class.forName(context.getPackageName() + ".BuildConfig");
+
+            String packageName = context.getPackageName();
+
+            //This remove the package name suffix, if was added by the Android Studio.
+            //It is been assumed the suffix will be always .debug
+            if (packageName.contains(".debug")) {
+                packageName = packageName.replace(".debug", "");
+            }
+
+            Class<?> clazz = Class.forName(packageName + ".BuildConfig");
             Field field = clazz.getField(fieldName);
             return field.get(null);
         } catch (ClassNotFoundException e) {
