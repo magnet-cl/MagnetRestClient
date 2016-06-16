@@ -33,7 +33,7 @@ import com.android.volley.toolbox.ImageLoader;
 
 /**
  * Implementation of an in-memory lru cache.
- * <p/>
+ *
  * Created by lukas on 25-07-14.
  */
 public class LruBitmapCache extends LruCache<String, Bitmap> implements ImageLoader.ImageCache {

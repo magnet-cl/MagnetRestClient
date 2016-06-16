@@ -24,31 +24,26 @@
 
 package cl.magnet.magnetrestclient.requests;
 
-import android.util.Log;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonRequest;
 
-import org.apache.http.HttpStatus;
 import org.apache.http.protocol.HTTP;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import cl.magnet.magnetrestclient.BuildConfig;
-import cl.magnet.magnetrestclient.MagnetErrorListener;
 import cl.magnet.magnetrestclient.utils.UserAgentUtils;
 
 
 /**
  * A request for retrieving a T type response body at a given URL that also
  * optionally sends along a JSON body in the request specified.
- * <p/>
+ *
  * This class can handle {@link cl.magnet.magnetrestclient.MagnetErrorListener} different errors,
- * but it also works with common  Volley {@link com.android.volley.Response.ErrorListener}.
- * <p/>
+ * but it also works with common  Volley {com.android.volley.Response.ErrorListener}.
+ *
  * {@inheritDoc}
  * Created by lukas on 16-03-15.
  */
@@ -65,14 +60,14 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
     /**
      * {@inheritDoc}
      *
-     * @param method        The http request method. See {@link com.android.volley.Request.Method} for
+     * @param method        The http request method. See {com.android.volley.Request.Method} for
      *                      supported methods.
      * @param url           The request url
      * @param requestBody   The request body
      * @param listener      Callback for delivering parse responses
      * @param errorListener Callback for devilering errors. It can be a
      *                      {@link cl.magnet.magnetrestclient.MagnetErrorListener} or
-     *                      {@link com.android.volley.Response.ErrorListener}
+     *                      {com.android.volley.Response.ErrorListener}
      */
     public BaseJsonRequest(int method, String url, String requestBody,
                            Response.Listener<T> listener, Response.ErrorListener errorListener) {

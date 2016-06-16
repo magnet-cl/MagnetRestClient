@@ -27,17 +27,13 @@ package cl.magnet.magnetrestclient;
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 
 /**
  * Helper volley error class
- * <p/>
+ *
  * Created by lukas on 02-11-14.
  */
 public final class VolleyErrorHelper {

@@ -31,7 +31,7 @@ import java.lang.reflect.Field;
 
 /**
  * User agent utility class.
- * <p/>
+ *
  * Created by lukas on 06-04-15.
  */
 public final class UserAgentUtils {
@@ -43,7 +43,7 @@ public final class UserAgentUtils {
     /**
      * Build a user agent string of the form:
      * <blockquote>{@code applicationId/versionName (androidVersion; model)}</blockquote>
-     * <p/>
+     *
      * For example:
      * <blockquote>{@code com.example.app/1.0 (Android 4.4.4; XT1032)}</blockquote>
      *
@@ -60,7 +60,7 @@ public final class UserAgentUtils {
     /**
      * Builds a user agent string of the form:
      * <blockquote>{@code applicationId/versionName (androidVersion; model)}</blockquote>
-     * <p/>
+     *
      * For example:
      * <blockquote>{@code com.example.app/1.0 (Android 4.4.4; XT1032)}</blockquote>
      *

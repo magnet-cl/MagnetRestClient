@@ -29,14 +29,14 @@ public class MagnetJsonObjectRequest extends JsonObjectRequest {
     /**
      * {@inheritDoc}
      *
-     * @param method        The http request method. See {@link com.android.volley.Request.Method} for
+     * @param method        The http request method. See {com.android.volley.Request.Method} for
      *                      supported methods.
      * @param url           The request url
      * @param requestBody   The request body
      * @param listener      Callback for delivering parse responses
      * @param errorListener Callback for devilering errors. It can be a
      *                      {@link cl.magnet.magnetrestclient.MagnetErrorListener} or
-     *                      {@link com.android.volley.Response.ErrorListener}
+     *                      {com.android.volley.Response.ErrorListener}
      */
     public MagnetJsonObjectRequest(int method, String url, JSONObject requestBody,
                                    Response.Listener<JSONObject> listener,
@@ -53,13 +53,13 @@ public class MagnetJsonObjectRequest extends JsonObjectRequest {
     /**
      * {@inheritDoc}
      *
-     * @param method        The http request method. See {@link com.android.volley.Request.Method} for
+     * @param method        The http request method. See {com.android.volley.Request.Method} for
      *                      supported methods.
      * @param url           The request url
      * @param listener      Callback for delivering parse responses
      * @param errorListener Callback for devilering errors. It can be a
      *                      {@link cl.magnet.magnetrestclient.MagnetErrorListener} or
-     *                      {@link com.android.volley.Response.ErrorListener}
+     *                      {com.android.volley.Response.ErrorListener}
      */
     public MagnetJsonObjectRequest(int method, String url, Response.Listener<JSONObject> listener,
                                    Response.ErrorListener errorListener) {

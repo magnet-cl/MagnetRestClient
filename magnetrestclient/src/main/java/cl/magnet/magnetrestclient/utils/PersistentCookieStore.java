@@ -38,12 +38,12 @@ import java.util.List;
 /**
  * Repository for cookies. CookieManager will store cookies of every incoming HTTP response into
  * CookieStore, and retrieve cookies for every outgoing HTTP request.
- * <p/>
+ *
  * Cookies are stored in {@link android.content.SharedPreferences} and will persist on the
- * user's device between application session. {@link com.google.gson.Gson} is used to serialize
+ * user's device between application session. {com.google.gson.Gson} is used to serialize
  * the cookies into a json string in order to be able to save the cookie to
  * {@link android.content.SharedPreferences}
- * <p/>
+ *
  * Created by lukas on 17-11-14.
  */
 public class PersistentCookieStore implements CookieStore {

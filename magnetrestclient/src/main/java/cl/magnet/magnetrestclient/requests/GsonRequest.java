@@ -41,12 +41,10 @@ import java.util.Map;
 /**
  * A request for retreving a Java object from the response body at a given URL that also
  * optionally sends along a JSON body in the request specified.
- * <p/>
- * The request uses {@link com.google.gson.Gson} to parse the json response into a Java object.
- * The default {@link com.google.gson.Gson} date format is {@code yyyy-MM-dd'T'HH:mm:ss}. For
- * customizing {@link com.google.gson.Gson} settings, {@link #getGson()} method can be overriden
+ * The request uses {com.google.gson.Gson} to parse the json response into a Java object.
+ * The default {com.google.gson.Gson} date format is {@code yyyy-MM-dd'T'HH:mm:ss}. For
+ * customizing {com.google.gson.Gson} settings, {@link #getGson()} method can be overriden
  * in order to build Gson with various configuration settings.
- * <p/>
  * Created by lukas on 26-07-14.
  * {@inheritDoc}
  */
@@ -61,7 +59,7 @@ public class GsonRequest<T> extends BaseJsonRequest<T> {
     /**
      * {@inheritDoc}
      *
-     * @param method        the http request method. See {@link com.android.volley.Request.Method} for
+     * @param method        the http request method. See {com.android.volley.Request.Method} for
      *                      supported methods.
      * @param url           The request url
      * @param classType     Relevant class object, for Gson's reflection.
@@ -69,7 +67,7 @@ public class GsonRequest<T> extends BaseJsonRequest<T> {
      * @param listener      Callback for delivering parse responses
      * @param errorListener Callback for devilering errors. It can be a
      *                      {@link cl.magnet.magnetrestclient.MagnetErrorListener} or
-     *                      {@link com.android.volley.Response.ErrorListener}
+     *                      {com.android.volley.Response.ErrorListener}
      */
     public GsonRequest(int method, String url, Class<T> classType, JSONObject jsonRequest,
                        Response.Listener<T> listener, Response.ErrorListener errorListener) {
@@ -79,7 +77,7 @@ public class GsonRequest<T> extends BaseJsonRequest<T> {
     /**
      * {@inheritDoc}
      *
-     * @param method        the http request method. See {@link com.android.volley.Request.Method} for
+     * @param method        the http request method. See {com.android.volley.Request.Method} for
      *                      supported methods.
      * @param url           The request url
      * @param classType     Relevant class object, for Gson's reflection.
@@ -88,7 +86,7 @@ public class GsonRequest<T> extends BaseJsonRequest<T> {
      * @param listener      Callback for delivering parse responses
      * @param errorListener Callback for devilering errors. It can be a
      *                      {@link cl.magnet.magnetrestclient.MagnetErrorListener} or
-     *                      {@link com.android.volley.Response.ErrorListener}
+     *                      {com.android.volley.Response.ErrorListener}
      */
     public GsonRequest(int method, String url, Class<T> classType, Map<String, String> headers,
                        JSONObject jsonRequest, Response.Listener<T> listener,
@@ -125,8 +123,8 @@ public class GsonRequest<T> extends BaseJsonRequest<T> {
     }
 
     /**
-     * This method is used to obtain the {@link com.google.gson.Gson} object that will parse the
-     * response. It can be overriden in order to customize {@link com.google.gson.Gson}
+     * This method is used to obtain the {com.google.gson.Gson} object that will parse the
+     * response. It can be overriden in order to customize {com.google.gson.Gson}
      * with various configuration settings.
      *
      * @return The gson object that will parse the response

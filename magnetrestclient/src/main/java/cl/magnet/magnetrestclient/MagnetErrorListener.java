@@ -25,16 +25,11 @@
 package cl.magnet.magnetrestclient;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
-import org.apache.http.HttpStatus;
-
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 
 /**
@@ -44,10 +39,10 @@ import java.net.HttpURLConnection;
  * <li>Upgrade required error: response status code 426</li>
  * <li>Other errors</li>
  * </ul>
- * <p/>
+ *
  * MagnetErrorListener only works when using with requests that inherit from
  * {@link cl.magnet.magnetrestclient.requests.BaseJsonRequest}
- * <p/>
+ *
  * Created by lukas on 18-03-15.
  */
 public abstract class MagnetErrorListener implements Response.ErrorListener {
@@ -100,8 +95,8 @@ public abstract class MagnetErrorListener implements Response.ErrorListener {
      * responds with a 4xx or 5xx status code, with the exception of 401 and
      * {@value #HTTP_UPGRADE_REQUIRED} codes,
      * that are handled by
-     * {@link #onUnauthorizedError(com.android.volley.VolleyError)}
-     * and {@link #onUpgradeRequiredError(com.android.volley.VolleyError)} respectively.
+     * {#onUnauthorizedError(com.android.volley.VolleyError)}
+     * and {#onUpgradeRequiredError(com.android.volley.VolleyError)} respectively.
      *
      * @param volleyError The error with the provided error code.
      */

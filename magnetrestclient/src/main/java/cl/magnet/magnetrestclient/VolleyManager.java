@@ -42,17 +42,17 @@ import cl.magnet.magnetrestclient.utils.PersistentCookieStore;
 import cl.magnet.magnetrestclient.utils.UserAgentUtils;
 
 /**
- * Singleton class that encapsulates {@link com.android.volley.RequestQueue} and other volley
+ * Singleton class that encapsulates {com.android.volley.RequestQueue} and other volley
  * functionality, and uses <a href="http://square.github.io/okhttp/">OkHttp</a> as its transport
  * layer.
- * <p/>
+ *
  * To every {@link cl.magnet.magnetrestclient.requests.BaseJsonRequest}
  * sent, it set's the user agent to:
  * <blockquote>{@code applicationId/versionName (androidVersion; model)}</blockquote>
- * <p/>
+ *
  * For example:
  * <blockquote>{@code com.example.app/1.0 (Android 4.4.4; XT1032)}</blockquote>
- * <p/>
+ *
  * Created by lukas on 02-11-14.
  */
 public final class VolleyManager {
@@ -88,7 +88,7 @@ public final class VolleyManager {
     /**
      * Returns the singleton instance of VolleyManager. If there is no instance,
      * then it creates a new one, else it returns the existing one.
-     * <p/>
+     *
      * A key concept is that context <b>must</b> be the Application context,
      * <b>not</b> an Activity context. This  ensures that the RequestQueue will last for the
      * lifetime of your app, instead of being recreated every time the activity is recreated (for

@@ -18,20 +18,44 @@ android {
         }
     }
 
-    dependencies {
-        compile fileTree(dir: 'libs', include: ['*.jar'])
-        compile 'com.mcxiaoke.volley:library:1.0.15'
-        compile 'com.mcxiaoke.volley:library:1.0.15'
-        compile 'com.android.support:appcompat-v7:22.1.1'
-        compile 'com.google.code.gson:gson:2.3.1'
-        compile 'com.squareup.okhttp:okhttp:2.3.0'
-        compile 'com.squareup.okhttp:okhttp-urlconnection:2.3.0'
-        androidTestCompile 'com.squareup.okhttp:mockwebserver:2.3.0'
-    }
-
-    lintOptions {
-        abortOnError false
-    }
+//    lintOptions {
+//        abortOnError false
+//    }
 }
 
-apply from: 'gradle-mvn-push.gradle'
+ext {
+    // Where you will see your artifact in Bintray's web interface
+    // The "bintrayName" should match the name of the Bintray repro.
+    bintrayRepo = 'maven'
+    bintrayName = 'testmagnet'
+
+    // Maven metadata
+    publishedGroupId = 'cl.magnet.magnetrestclient'
+    libraryName = 'magnetrestclient'
+    // Save yourself a head ache, and set this equal to the name of the Android Studio library
+    // module. The artifact name needs to match the name of the library.
+    artifact = 'magnetrestclient'
+
+    libraryDescription = 'An android REST client on top of Volley.'
+    libraryVersion = '1.1.0'
+
+    developerId = 'edwinperaza'
+    developerName = 'Edwin Peraza'
+    developerEmail = 'edwinperaza87@gmail.com'
+}
+
+apply from: 'https://raw.githubusercontent.com/attwellBrian/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/attwellBrian/JCenter/master/bintrayv1.gradle'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.mcxiaoke.volley:library:1.0.15'
+    compile 'com.mcxiaoke.volley:library:1.0.15'
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.squareup.okhttp:okhttp:2.3.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.3.0'
+    androidTestCompile 'com.squareup.okhttp:mockwebserver:2.3.0'
+}
+
+//apply from: 'gradle-mvn-push.gradle'
