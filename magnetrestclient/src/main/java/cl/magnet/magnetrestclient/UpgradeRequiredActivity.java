@@ -1,16 +1,15 @@
 package cl.magnet.magnetrestclient;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class UpgradeRequiredActivity extends ActionBarActivity {
+public class UpgradeRequiredActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
