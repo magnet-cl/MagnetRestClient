@@ -4,7 +4,6 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -19,6 +18,7 @@ import cl.magnet.magnetrestclient.utils.UserAgentUtils;
 public class MagnetJsonObjectRequest extends JsonObjectRequest {
 
     private static final String TAG = BaseJsonRequest.class.getSimpleName();
+    private static final String USER_AGENT = "User-Agent";
 
     private static final String USER_AGENT_DEFAULT = UserAgentUtils.getUserAgent(BuildConfig
             .APPLICATION_ID, BuildConfig.VERSION_NAME);
@@ -47,7 +47,7 @@ public class MagnetJsonObjectRequest extends JsonObjectRequest {
         mHeaders = new HashMap<>();
 
         // we add the default user-agent header
-        addHeader(HTTP.USER_AGENT, USER_AGENT_DEFAULT);
+        addHeader(USER_AGENT, USER_AGENT_DEFAULT);
     }
 
     /**
@@ -69,7 +69,7 @@ public class MagnetJsonObjectRequest extends JsonObjectRequest {
         mHeaders = new HashMap<>();
 
         // we add the default user-agent header
-        addHeader(HTTP.USER_AGENT, USER_AGENT_DEFAULT);
+        addHeader(USER_AGENT, USER_AGENT_DEFAULT);
     }
 
 
@@ -84,7 +84,7 @@ public class MagnetJsonObjectRequest extends JsonObjectRequest {
      * @param userAgent The user agent
      */
     public void setUserAgent(String userAgent) {
-        addHeader(HTTP.USER_AGENT, userAgent);
+        addHeader(USER_AGENT, userAgent);
     }
 
     /**

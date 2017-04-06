@@ -28,8 +28,6 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonRequest;
 
-import org.apache.http.protocol.HTTP;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,6 +48,7 @@ import cl.magnet.magnetrestclient.utils.UserAgentUtils;
 public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
 
     private static final String TAG = BaseJsonRequest.class.getSimpleName();
+    private static final String USER_AGENT = "User-Agent";
 
     private static final String USER_AGENT_DEFAULT = UserAgentUtils.getUserAgent(BuildConfig
             .APPLICATION_ID, BuildConfig.VERSION_NAME);
@@ -76,7 +75,7 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
         mHeaders = new HashMap<>();
 
         // we add the default user-agent header
-        addHeader(HTTP.USER_AGENT, USER_AGENT_DEFAULT);
+        addHeader(USER_AGENT, USER_AGENT_DEFAULT);
     }
 
 
@@ -91,7 +90,7 @@ public abstract class BaseJsonRequest<T> extends JsonRequest<T> {
      * @param userAgent The user agent
      */
     public void setUserAgent(String userAgent) {
-        addHeader(HTTP.USER_AGENT, userAgent);
+        addHeader(USER_AGENT, userAgent);
     }
 
     /**
