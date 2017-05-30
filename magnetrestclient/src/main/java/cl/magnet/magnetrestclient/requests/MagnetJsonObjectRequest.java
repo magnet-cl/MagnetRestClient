@@ -50,6 +50,29 @@ public class MagnetJsonObjectRequest extends JsonObjectRequest {
         addHeader(USER_AGENT, USER_AGENT_DEFAULT);
     }
 
+    /**
+     * -     * {@inheritDoc}
+     * -     *
+     * -     * @param method        The http request method. See {com.android.volley.Request.Method} for
+     * -     *                      supported methods.
+     * -     * @param url           The request url
+     * -     * @param listener      Callback for delivering parse responses
+     * -     * @param errorListener Callback for devilering errors. It can be a
+     * -     *                      {@link cl.magnet.magnetrestclient.MagnetErrorListener} or
+     * -     *                      {com.android.volley.Response.ErrorListener}
+     * -
+     */
+    public MagnetJsonObjectRequest(int method, String url, Response.Listener<JSONObject> listener,
+                                   Response.ErrorListener errorListener) {
+
+        super(method, url, listener, errorListener);
+
+        mHeaders = new HashMap<>();
+
+        // we add the default user-agent header
+        addHeader(USER_AGENT, USER_AGENT_DEFAULT);
+    }
+
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
         return mHeaders;
